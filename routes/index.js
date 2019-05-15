@@ -11,24 +11,23 @@ router.get('/', function(req, res, next) {
   const title = '予定調整くん';
   if (req.user) {
     Schedule.findAll({
-      where: {
-        createdBy: req.user.id
-      },
     include: [
         {
             model: User,
             attributes: ['userId', 'username']
         }],
       order: [['"updateAt"', 'DESC']]
-    }).then((schedules) => {
-      schedules.forEach((schedule) => {
+    }).then((allSchedules) => {
+      allSchedules.forEach((schedule) => {
         schedule.formattedUpdatedAt = moment(schedule.updateAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')
       });
+      const mySchedules =  allSchedules.filter(s => s.createdBy === req.user.id)
       res.render(
           'index', {
             title: title,
             user: req.user,
-            schedules: schedules
+            allSchedules: allSchedules,
+            mySchedules: mySchedules,
           });
     });
   } else {
