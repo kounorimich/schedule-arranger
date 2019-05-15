@@ -14,8 +14,10 @@ block content
                 tr
                     th 予定名
                     th 更新日時
+                    th 作成者
                 each schedule in schedules
                     tr
                     td
                         a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
                     td #{schedule.formattedUpdatedAt}
+                    td #{schedule.user.username}
