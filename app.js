@@ -28,8 +28,8 @@ User.sync().then(() => { // sync関数で、Userモデルに合わせたテー�
 
 
 var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID =  process.env.GITHUB_CLIENT_ID || '93fcdbc30b34008408dd';
-var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || '2c6676a3b9bacb442011a82924530c59e43b18b6';
+var GITHUB_CLIENT_ID =  process.env.GITHUB_CLIENT_ID || '81e2f1b668d843410254';
+var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || '2e87a3e817ca8cb2f35488adbae199a9a0dcb95f';
 
 
 

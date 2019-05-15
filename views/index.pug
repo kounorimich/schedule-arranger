@@ -7,15 +7,15 @@ block content
     if user
         div
             a(href="/schedules/new").btn.btn-info 予定を作る
-    
-
+        -var hasAllSchedule = allSchedules.length > 0
+        if hasAllSchedule
             h3 全ての予定
                 table.table
                     tr
                         th 予定名
                         th 更新日時
                         th 作成者
-                    each schedule in schedules
+                    each schedule in allSchedules
                         tr
                         td
                             a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
@@ -30,7 +30,7 @@ block content
                     th 予定名
                     th 更新日時
                     th 作成者
-                each schedule in schedules
+                each schedule in mySchedules
                     tr
                     td
                         a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
