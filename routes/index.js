@@ -18,7 +18,8 @@ router.get('/', function(req, res, next) {
         }],
       order: [['"updateAt"', 'DESC']]
     }).then((allSchedules) => {
-      allSchedules.forEach((schedule) => {
+    console.log(allSchdules);
+    allSchedules.forEach((schedule) => {
         schedule.formattedUpdatedAt = moment(schedule.updateAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')
       });
       const mySchedules =  allSchedules.filter(s => s.createdBy === req.user.id);
