@@ -31,6 +31,8 @@ var GitHubStrategy = require('passport-github2').Strategy;
 var GITHUB_CLIENT_ID =  process.env.GITHUB_CLIENT_ID || '93fcdbc30b34008408dd';
 var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || '2c6676a3b9bacb442011a82924530c59e43b18b6';
 
+
+
 passport.serializeUser(function(user, done) { // 認証されたユーザーの情報をそのまま全てオブジェクトとして保存
   done(null, user); // （エラー、結果）
 });
@@ -42,8 +44,7 @@ passport.deserializeUser(function(obj, done) { // 保存されたデータをユ
 passport.use(new GitHubStrategy({
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  // callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/github/callback' : 'http://localhost:8000/auth/github/callback'
-  callbackURL: 'http://localhost:8000/auth/github/callback'
+  callbackURL: process.env.HEROKU_URL ? process.env.HEROKU_URL + 'auth/github/callback' : 'http://localhost:8000/auth/github/callback'
 },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {

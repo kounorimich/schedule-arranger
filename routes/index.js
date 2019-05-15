@@ -18,18 +18,18 @@ router.get('/', function(req, res, next) {
         }],
       order: [['"updateAt"', 'DESC']]
     }).then((allSchedules) => {
-    console.log(allSchdules);
-    allSchedules.forEach((schedule) => {
-        schedule.formattedUpdatedAt = moment(schedule.updateAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')
-      });
-      const mySchedules =  allSchedules.filter(s => s.createdBy === req.user.id);
-      res.render(
-          'index', {
-            title: title,
-            user: req.user,
-            allSchedules: allSchedules,
-            mySchedules: mySchedules,
-          });
+        console.log('################################################################   allSchedules############' + allSchedules);
+        allSchedules.forEach((schedule) => {
+            schedule.formattedUpdatedAt = moment(schedule.updateAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')
+        });
+        const mySchedules =  allSchedules.filter(s => s.createdBy === req.user.id);
+        res.render(
+            'index', {
+                title: title,
+                user: req.user,
+                allSchedules: allSchedules,
+                mySchedules: mySchedules,
+              });
     });
   } else {
     res.render('index', {title: title, user: req.user});
