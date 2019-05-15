@@ -7,32 +7,20 @@ block content
     if user
         div
             a(href="/schedules/new").btn.btn-info 予定を作る
-        -var hasAllSchedule = allSchedules.length > 0
+        br
+        - var hasAllSchedule = allSchedules.length > 0
         if hasAllSchedule
-            h3 全ての予定
-                table.table
-                    tr
-                        th 予定名
-                        th 更新日時
-                        th 作成者
-                    each schedule in allSchedules
-                        tr
-                        td
-                            a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
-                        td #{schedule.formattedUpdatedAt}
-                        td #{schedule.user.username}
-
-        - var hasMySchedule = mySchedules.length > 0
-        if hasMySchedule
-            h3 あなたの作った予定
             table.table
                 tr
                     th 予定名
                     th 更新日時
                     th 作成者
-                each schedule in mySchedules
+                each schedule in allSchedules
                     tr
-                    td
-                        a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
-                    td #{schedule.formattedUpdatedAt}
-                    td あなた (#{user.username})
+                        td
+                            a(href=`/schedules/${schedule.scheduleId}`) #{schedule.scheduleName}
+                        td #{schedule.formattedUpdatedAt}
+                        if mySchedules.includes(schedule)
+                            td #{schedule.user.username} (あなた)
+                        else
+                            td #{schedule.user.username}
