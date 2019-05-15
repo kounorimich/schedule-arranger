@@ -1,9 +1,34 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+const express = require('express');
+const router = express.Router();
+const Schedule = require('../models/schedule');
+const moment = require('moment-timezone');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  const title = '予定調整くん';
+  if (req.user) {
+    Schedule.findAll({
+      where: {
+        createdBy: req.user.id
+      },
+      order: [['"updateAt"', 'DESC']]
+    }).then((schedules) => {
+      schedules.forEach((schedule) => {
+        schedule.formattedUpdatedAt = moment(schedule.updateAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')
+      });
+      res.render(
+          'index', {
+            title: title,
+            user: req.user,
+            schedules: schedules
+          });
+    });
+  } else {
+    res.render('index', {title: title, user: req.user});
+  }
+
+
 });
 
 module.exports = router;
