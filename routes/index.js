@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
       allSchedules.forEach((schedule) => {
         schedule.formattedUpdatedAt = moment(schedule.updateAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm')
       });
-      const mySchedules =  allSchedules.filter(s => s.createdBy === req.user.id)
+      const mySchedules =  allSchedules.filter(s => s.createdBy === req.user.id);
       res.render(
           'index', {
             title: title,
